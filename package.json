@@ -1,0 +1,22 @@
+{
+  "name": "platzi-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/terrill021/react-practice.git"
+  },
+  "keywords": [
+    "reacrt\u001b[t"
+  ],
+  "author": "Alejandro Terrill",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/terrill021/react-practice/issues"
+  },
+  "homepage": "https://github.com/terrill021/react-practice#readme"
+}
