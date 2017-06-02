@@ -2,76 +2,12 @@
 <html>
 <head>
 	<title>React</title>
-
-	<script type="text/javascript" src="js/JSXTransformer-0.13.3.js"></script>
-	<script type="text/javascript" src="js/react-0.13.3.js"></script>
-
-	<script type="text/jsx">
-		
-		var PokeTable = React.createClass({
-			render : function (){
-				
-				return <table>
-						  <tr>
-						    <th>Número</th>
-						    <th>Nombre</th> 						
-						    <th>Avatar</th>
-						  </tr>
-						  
-						  {
-
-						  	this.props.pokemons.map(pokemon => {
-						  		return <PokeRow  porkemon= {pokemon}>
-						  	})
-						  }
-						  
-						</table>
-			}
-		});
-
-		var PokeRow = React.createClass({
-			
-			render : function(){
-				return <tr>
-							<td>{this.props.pokemon.id}</td>
-						    <td>{this.props.pokemon.nombre}</td>
-						    <PokeAvatar image={this.props.pokemon.srcAvatar}/>
-						</tr>
-			}
-		})
-
-		var pokeAvatar = React.createClass({
-
-			render : function(){
-				return <img src={this.props.image}>
-			}
-		})
-
-		var pokemons = [
-			{
-				nombre : "Squirtle",
-				id : 1,
-				srcAvatar : "laruta"
-			},
-			{
-				nombre : "Pokemon 2",
-				id : 2,
-				srcAvatar : "laruta"
-			},
-			{
-				nombre : "Pokemon 3",
-				id : 3,
-				srcAvatar : "laruta"
-			}
-		]
-
-
-
-		React.render(<PokeTable pokemons= {pokemons}/>, document.body);
-	</script>
-
+	
 </head>
 <body>
-
+	<div id="container">
+		
+	</div>
+	<script src="build.js"></script>
 </body>
 </html>
