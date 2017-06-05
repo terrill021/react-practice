@@ -20802,6 +20802,25 @@ module.exports = traverseAllChildren;
 module.exports = require('./lib/React');
 
 },{"./lib/React":158}],182:[function(require,module,exports){
+/**
+ * Export `uid`
+ */
+
+module.exports = uid;
+
+/**
+ * Create a `uid`
+ *
+ * @param {String} len
+ * @return {String} uid
+ */
+
+function uid(len) {
+  len = len || 7;
+  return Math.random().toString(35).substr(2, len);
+}
+
+},{}],183:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -20812,9 +20831,9 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _PokeTable = require('./components/PokeTable');
+var _PokeApp = require('./components/PokeApp');
 
-var _PokeTable2 = _interopRequireDefault(_PokeTable);
+var _PokeApp2 = _interopRequireDefault(_PokeApp);
 
 function _interopRequireDefault(obj) {
 	return obj && obj.__esModule ? obj : { default: obj };
@@ -20829,56 +20848,14 @@ var pokemons = [{
 }, {
 	nombre: "Pokemon 3",
 	id: 3
-}, {
-	nombre: "Pokemon 4",
-	id: 4
-}, {
-	nombre: "Pokemon 5",
-	id: 5
-}, {
-	nombre: "Pokemon 6",
-	id: 6
-}, {
-	nombre: "Pokemon 7",
-	id: 7
-}, {
-	nombre: "Pokemon 8",
-	id: 8
-}, {
-	nombre: "Pokemon 9",
-	id: 9
-}, {
-	nombre: "Pokemon 10",
-	id: 10
-}, {
-	nombre: "Pokemon 11",
-	id: 11
-}, {
-	nombre: "Pokemon 12",
-	id: 12
-}, {
-	nombre: "Pokemon 13",
-	id: 13
-}, {
-	nombre: "Pokemon 14",
-	id: 14
-}, {
-	nombre: "Pokemon 15",
-	id: 15
-}, {
-	nombre: "Pokemon 16",
-	id: 16
-}, {
-	nombre: "Pokemon17",
-	id: 17
-}, {
-	nombre: "Pokemon17",
-	id: 18
 }];
+/*
+* 
+*/
 
-_reactDom2.default.render(_react2.default.createElement(_PokeTable2.default, { pokemons: pokemons }), document.getElementById('container'));
+_reactDom2.default.render(_react2.default.createElement(_PokeApp2.default, { pokemons: pokemons }), document.getElementById('container'));
 
-},{"./components/PokeTable":185,"react":181,"react-dom":30}],183:[function(require,module,exports){
+},{"./components/PokeApp":184,"react":181,"react-dom":30}],184:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -20898,6 +20875,100 @@ var _createClass = function () {
 }();
 
 var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _PokeTable = require('./PokeTable');
+
+var _PokeTable2 = _interopRequireDefault(_PokeTable);
+
+var _PokeChat = require('./PokeChat');
+
+var _PokeChat2 = _interopRequireDefault(_PokeChat);
+
+var _uid = require('uid');
+
+var _uid2 = _interopRequireDefault(_uid);
+
+function _interopRequireDefault(obj) {
+	return obj && obj.__esModule ? obj : { default: obj };
+}
+
+function _classCallCheck(instance, Constructor) {
+	if (!(instance instanceof Constructor)) {
+		throw new TypeError("Cannot call a class as a function");
+	}
+}
+
+function _possibleConstructorReturn(self, call) {
+	if (!self) {
+		throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	}return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+	if (typeof superClass !== "function" && superClass !== null) {
+		throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var PokeApp = function (_React$Component) {
+	_inherits(PokeApp, _React$Component);
+
+	function PokeApp(props) {
+		_classCallCheck(this, PokeApp);
+
+		var _this = _possibleConstructorReturn(this, (PokeApp.__proto__ || Object.getPrototypeOf(PokeApp)).call(this, props));
+
+		_this.state = {
+			messages: []
+		};
+
+		_this.onGrowl = _this.onGrowl.bind(_this);
+		return _this;
+	}
+
+	_createClass(PokeApp, [{
+		key: 'onGrowl',
+		value: function onGrowl(name) {
+			var text = name + ', ' + name + ' !';
+			var message = { text: text, id: (0, _uid2.default)() };
+			this.state.messages.push(message);
+			this.setState({ messages: this.state.messages });
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+
+			return _react2.default.createElement('div', { className: 'pokeapp' }, _react2.default.createElement(_PokeTable2.default, { pokemons: this.props.pokemons, onGrowl: this.onGrowl }), _react2.default.createElement(_PokeChat2.default, { messages: this.state.messages }));
+		}
+	}]);
+
+	return PokeApp;
+}(_react2.default.Component);
+
+exports.default = PokeApp;
+
+},{"./PokeChat":186,"./PokeTable":189,"react":181,"uid":182}],185:[function(require,module,exports){
+"use strict";
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () {
+	function defineProperties(target, props) {
+		for (var i = 0; i < props.length; i++) {
+			var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+		}
+	}return function (Constructor, protoProps, staticProps) {
+		if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	};
+}();
+
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -20933,10 +21004,10 @@ var PokeAvatar = function (_React$Component) {
 	}
 
 	_createClass(PokeAvatar, [{
-		key: 'render',
+		key: "render",
 		value: function render() {
-			var url = 'http://veekun.com/dex/media/pokemon/main-sprites/x-y/' + this.props.id + '.png';
-			return _react2.default.createElement('img', { src: url });
+			var url = "http://veekun.com/dex/media/pokemon/main-sprites/x-y/" + this.props.id + ".png";
+			return _react2.default.createElement("div", { className: "avatar-container" }, "  ", _react2.default.createElement("img", { className: "avatar", src: url }), " ");
 		}
 	}]);
 
@@ -20946,7 +21017,152 @@ var PokeAvatar = function (_React$Component) {
 exports.default = PokeAvatar;
 ;
 
-},{"react":181}],184:[function(require,module,exports){
+},{"react":181}],186:[function(require,module,exports){
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () {
+	function defineProperties(target, props) {
+		for (var i = 0; i < props.length; i++) {
+			var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+		}
+	}return function (Constructor, protoProps, staticProps) {
+		if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	};
+}();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _PokeMessage = require('./PokeMessage');
+
+var _PokeMessage2 = _interopRequireDefault(_PokeMessage);
+
+function _interopRequireDefault(obj) {
+	return obj && obj.__esModule ? obj : { default: obj };
+}
+
+function _classCallCheck(instance, Constructor) {
+	if (!(instance instanceof Constructor)) {
+		throw new TypeError("Cannot call a class as a function");
+	}
+}
+
+function _possibleConstructorReturn(self, call) {
+	if (!self) {
+		throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	}return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+	if (typeof superClass !== "function" && superClass !== null) {
+		throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var PokeChat = function (_React$Component) {
+	_inherits(PokeChat, _React$Component);
+
+	function PokeChat(props) {
+		_classCallCheck(this, PokeChat);
+
+		var _this = _possibleConstructorReturn(this, (PokeChat.__proto__ || Object.getPrototypeOf(PokeChat)).call(this, props));
+
+		_this.state = {
+			messages: []
+		};
+		return _this;
+	}
+
+	_createClass(PokeChat, [{
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement('ul', { className: 'pokechat' }, this.props.messages.map(function (message) {
+				return _react2.default.createElement(_PokeMessage2.default, { key: message.id, message: message });
+			}));
+		}
+	}]);
+
+	return PokeChat;
+}(_react2.default.Component);
+
+exports.default = PokeChat;
+
+PokeChat.defaultProps = { messages: [] };
+
+},{"./PokeMessage":187,"react":181}],187:[function(require,module,exports){
+"use strict";
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () {
+	function defineProperties(target, props) {
+		for (var i = 0; i < props.length; i++) {
+			var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+		}
+	}return function (Constructor, protoProps, staticProps) {
+		if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	};
+}();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) {
+	return obj && obj.__esModule ? obj : { default: obj };
+}
+
+function _classCallCheck(instance, Constructor) {
+	if (!(instance instanceof Constructor)) {
+		throw new TypeError("Cannot call a class as a function");
+	}
+}
+
+function _possibleConstructorReturn(self, call) {
+	if (!self) {
+		throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	}return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+	if (typeof superClass !== "function" && superClass !== null) {
+		throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var PokeMessage = function (_React$Component) {
+	_inherits(PokeMessage, _React$Component);
+
+	function PokeMessage() {
+		_classCallCheck(this, PokeMessage);
+
+		return _possibleConstructorReturn(this, (PokeMessage.__proto__ || Object.getPrototypeOf(PokeMessage)).apply(this, arguments));
+	}
+
+	_createClass(PokeMessage, [{
+		key: "render",
+		value: function render() {
+			return _react2.default.createElement("li", { className: "pokemessage" }, this.props.message.text);
+		}
+	}]);
+
+	return PokeMessage;
+}(_react2.default.Component);
+
+exports.default = PokeMessage;
+
+},{"react":181}],188:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -21005,9 +21221,15 @@ var PokeRow = function (_React$Component) {
 	}
 
 	_createClass(PokeRow, [{
+		key: 'onClick',
+		value: function onClick(ev) {
+			//1: Objeto a bindear, 2 .. n: Parametros q se pasan
+			this.props.growl.call(null, this.props.pokemon.nombre);
+		}
+	}, {
 		key: 'render',
 		value: function render() {
-			return _react2.default.createElement('tr', null, _react2.default.createElement('td', null, this.props.pokemon.id), _react2.default.createElement('td', null, this.props.pokemon.nombre), _react2.default.createElement('td', null, _react2.default.createElement(_PokeAvatar2.default, { key: this.props.pokemon.id, id: this.props.pokemon.id })));
+			return _react2.default.createElement('tr', { className: 'pokerow', onClick: this.onClick.bind(this) }, _react2.default.createElement('td', null, this.props.pokemon.id), _react2.default.createElement('td', null, this.props.pokemon.nombre), _react2.default.createElement('td', null, _react2.default.createElement(_PokeAvatar2.default, { key: this.props.pokemon.id, id: this.props.pokemon.id })));
 		}
 	}]);
 
@@ -21016,7 +21238,7 @@ var PokeRow = function (_React$Component) {
 
 exports.default = PokeRow;
 
-},{"./PokeAvatar":183,"react":181}],185:[function(require,module,exports){
+},{"./PokeAvatar":185,"react":181}],189:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -21077,10 +21299,11 @@ var PokeTable = function (_React$Component) {
 	_createClass(PokeTable, [{
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
 
-			return _react2.default.createElement('table', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'N\xFAmero'), _react2.default.createElement('th', null, 'Nombre'), _react2.default.createElement('th', null, 'Avatar')), this.props.pokemons.map(function (pokemon) {
-				return _react2.default.createElement(_PokeRow2.default, { pokemon: pokemon });
-			}));
+			return _react2.default.createElement('table', { className: 'poketable' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'N\xFAmero'), _react2.default.createElement('th', null, 'Nombre'), _react2.default.createElement('th', null, 'Avatar'))), _react2.default.createElement('tbody', null, this.props.pokemons.map(function (pokemon) {
+				return _react2.default.createElement(_PokeRow2.default, { key: pokemon.id, pokemon: pokemon, growl: _this2.props.onGrowl });
+			})));
 		}
 	}]);
 
@@ -21089,4 +21312,4 @@ var PokeTable = function (_React$Component) {
 
 exports.default = PokeTable;
 
-},{"./PokeRow":184,"react":181}]},{},[182]);
+},{"./PokeRow":188,"react":181}]},{},[183]);

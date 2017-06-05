@@ -12,7 +12,17 @@
     "url": "git+https://github.com/terrill021/react-practice.git"
   },
   "browserify": {
-    "transform": [["babelify", { "presets": ["es2015", "react"] }]]
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015",
+            "react"
+          ]
+        }
+      ]
+    ]
   },
   "author": "Alejandro Terrill",
   "license": "ISC",
@@ -28,6 +38,7 @@
   },
   "dependencies": {
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "uid": "0.0.2"
   }
 }
